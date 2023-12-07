@@ -73,30 +73,21 @@ function formatDate(date) {
     return date.toLocaleDateString('en-US', options);
 }
 
-// Your existing code...
-
-// Example city name (replace with your desired city name)
 const defaultCityName = 'London';
 
-// Load past searches from local storage or initialize an empty array
 const pastSearches = JSON.parse(localStorage.getItem('pastSearches')) || [];
 
-// Fetch weather data using the default city name
 fetchWeather(defaultCityName);
 
-// Add an event listener for the search button
 document.getElementById('search-button').addEventListener('click', function () {
     const cityName = document.getElementById('search-input').value.trim();
 
     if (cityName !== '') {
-        // Fetch weather data using the provided city name
         fetchWeather(cityName);
-        // Add the current search to the past searches list
         addPastSearch(cityName);
     }
 });
 
-// Add this function to update the list of past searches in the UI
 function updatePastSearchList() {
     const pastSearchList = document.getElementById('past-search-list');
     pastSearchList.innerHTML = '';
@@ -105,22 +96,16 @@ function updatePastSearchList() {
         const listItem = document.createElement('li');
         listItem.textContent = search;
         listItem.addEventListener('click', () => {
-            // Clicking on a past search re-fetches the weather for that city
             fetchWeather(search);
         });
         pastSearchList.appendChild(listItem);
     });
 }
 
-// Add this function to add a new search to the past searches list
 function addPastSearch(cityName) {
-    // Add the new search to the beginning of the array
     pastSearches.unshift(cityName);
 
-    // Save the updated past searches list to local storage
     localStorage.setItem('pastSearches', JSON.stringify(pastSearches));
-
-    // Update the UI to reflect the changes
     updatePastSearchList();
 }
 
