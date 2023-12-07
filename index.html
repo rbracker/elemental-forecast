@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css"/>
+    <title>Elemental Forecast</title>
+</head>
+<body>
+
+    <header>
+        <h1>Elemental Forecast</h1>
+        <div id="search-container">
+            <input type="text" id="search-input" placeholder="Enter city name">
+            <button id="search-button">Search</button>
+        </div>
+    </header>
+
+    <div id="past-searches">
+        <h3>Past Searches</h3>
+        <ul id="past-search-list"></ul>
+    </div>
+
+    <main>
+        <div id="weather-data">
+            <h2 id="city-name">City Name</h2>
+            <p id="temperature">Temperature:</p>
+            <p id="description">Description:</p>
+            <h3>5-Day Forecast</h3>
+            <ul id="week-forecast"></ul>
+        </div>
+    </main>
+
+ <script src="script.js"></script>
+
+</body>
+</html>

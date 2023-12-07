@@ -1,0 +1,104 @@
+body {
+    background-color: #282c35;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #1f2229;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+}
+
+#weather-data {
+    background-color: #363b45;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px; /* Added margin-bottom for spacing */
+}
+
+#week-forecast {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+#city-name {
+    margin-top: 0;
+    text-align: center;
+}
+
+#temperature,
+#description {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#week-forecast li {
+    flex: 1;
+    padding: 8px;
+    background-color: #464b56;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#week-forecast li:hover {
+    background-color: #555a64;
+}
+
+#search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+#search-input {
+    padding: 8px;
+    margin-right: 10px; /* Increased margin-right for more spacing */
+}
+
+#past-searches {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
+    margin-top: 20px;
+}
+
+#past-searches h3 {
+    margin: 0;
+    flex-basis: 100%; /* Make the heading take full width initially */
+}
+
+#past-search-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
+}
+
+#past-search-list li {
+    background-color: #555a64;
+    border: 1px solid #464b56;
+    padding: 8px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+#past-search-list li:hover {
+    background-color: #464b56;
+}
+
