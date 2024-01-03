@@ -1,63 +1,152 @@
-function fetchWeather(cityName) {
+async function fetchWeather(cityName) {
     const apiKey = 'd7e52e98046df3ba1be2ce6ff1a2d0e8';
     const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Network response was not ok (${response.status} ${response.statusText})`);
-            }
-            return response.json();
-        })
-        .then(data => handleWeatherData(data))
-        .catch(error => handleWeatherError(error));
-}
+    try {
+        const response = await fetch(apiUrl);
 
-function handleWeatherData(data) {
-    if (data) {
-        updateWeatherElements(data);
-    } else {
-        console.error('Unexpected data format in the API response');
+        if (!response.ok) {
+            throw new Error(`Network response was not ok (${response.status} ${response.statusText})`);
+        }
+
+        const data = await response.json(); // Parse JSON response
+        handleWeatherData(data);
+    } catch (error) {
+        handleWeatherError(error);
     }
 }
 
-function updateWeatherElements(data) {
-    document.getElementById('city-name').innerText = data.city.name;
+function handleLocationError(error) {
+    console.log(`Error getting location: ${error.message}`);
+    // You can provide a user-friendly message or fallback behavior here
+}
+
+// Function to fetch weather based on latitude and longitude
+async function fetchWeatherByCoordinates(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    const apiKey = 'd7e52e98046df3ba1be2ce6ff1a2d0e8';
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+
+    try {
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+            throw new Error(`Network response was not ok (${response.status} ${response.statusText})`);
+        }
+
+        const data = await response.json();
+        handleWeatherData(data);
+    } catch (error) {
+        handleWeatherError(error);
+    }
+}
+
+async function fetchWeatherByCoordinates(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    const apiKey = 'd7e52e98046df3ba1be2ce6ff1a2d0e8';
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+
+    try {
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+            throw new Error(`Network response was not ok (${response.status} ${response.statusText})`);
+        }
+
+        const data = await response.json();
+        handleWeatherData(data);
+    } catch (error) {
+        handleWeatherError(error);
+    }
+}
+
+// Function to ask for location and fetch weather on page load
+function askForLocationAndFetchWeather() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(fetchWeatherByCoordinates, handleLocationError, { timeout: 5000 });
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+        // Provide a user-friendly message or fallback behavior here
+    }
+}
+
+// Trigger location fetching on page load
+window.addEventListener('load', askForLocationAndFetchWeather);
+document.getElementById('search-button').addEventListener('click', handleSearchButtonClick);
+
+function handleSearchButtonClick() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(fetchWeatherByCoordinates, handleLocationError, { timeout: 5000 });
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+        // Provide a user-friendly message or fallback behavior here
+    }
+}
+
+// Attach an event listener to the button to trigger location fetching
+document.getElementById('search-button').addEventListener('click', getCurrentLocation);
+
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(fetchWeatherByCoordinates, handleLocationError, { timeout: 5000 });
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+        // Provide a user-friendly message or fallback behavior here
+    }
+}
+
+function handleWeatherData(data) {
+    const cityName = data.city.name;
+    document.getElementById('city-name').innerText = cityName;
 
     // Display current weather
-    const temperatureFahrenheit = convertKelvinToFahrenheit(data.list[0].main.temp);
+    const temperatureKelvin = data.list[0].main.temp;
+    const temperatureFahrenheit = convertKelvinToFahrenheit(temperatureKelvin);
     document.getElementById('temperature').innerText = `Temperature: ${temperatureFahrenheit.toFixed(2)} °F`;
-    document.getElementById('description').innerText = `Description: ${data.list[0].weather[0].description}`;
 
-    // Display 5-day forecast
+    const description = data.list[0].weather[0].description;
+    document.getElementById('description').innerText = `Description: ${description}`;
+
+    const weatherIconCode = data.list[0].weather[0].icon;
+    const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}.png`;
+    const weatherIcon = document.getElementById('weather-icon');
+    weatherIcon.src = weatherIconUrl;
+
     const weekForecastList = document.getElementById('week-forecast');
-    weekForecastList.innerHTML = ''; // Clear previous content
+    weekForecastList.innerHTML = '';
 
-    const today = new Date(); // Get the current date
-    const next5Days = new Set(); // Use a Set to avoid duplicates if the API data contains multiple readings for the same day
+    const today = new Date();
+    const next5Days = new Set();
 
-    for (let i = 0; i < data.list.length; i += 1) {
-        const date = new Date(data.list[i].dt * 1000);
-        
-        // Check if the date is in the future and not already added
+    data.list.forEach(item => {
+        const date = new Date(item.dt * 1000);
+
         if (date > today && !next5Days.has(formatDate(date))) {
             next5Days.add(formatDate(date));
 
             const listItem = document.createElement('li');
-            const temperatureF = convertKelvinToFahrenheit(data.list[i].main.temp);
+            const temperatureF = convertKelvinToFahrenheit(item.main.temp);
+            const iconCode = item.weather[0].icon;
+            const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
+
             listItem.innerHTML = `
                 <strong>${formatDate(date)}</strong><br>
+                <img src="${iconUrl}" alt="${item.weather[0].description}"><br>
                 Temperature: ${temperatureF.toFixed(2)} °F<br>
-                Wind: ${data.list[i].wind.speed} m/s<br>
-                Humidity: ${data.list[i].main.humidity}%
+                Wind: ${item.wind.speed} m/s<br>
+                Humidity: ${item.main.humidity}%
             `;
             weekForecastList.appendChild(listItem);
 
             if (next5Days.size === 5) {
-                break; // Stop when 5 unique future dates are found
+                return;
             }
         }
-    }
+    });
 }
 
 function convertKelvinToFahrenheit(kelvin) {
@@ -69,13 +158,15 @@ function handleWeatherError(error) {
 }
 
 function formatDate(date) {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 }
 
-const defaultCityName = 'London';
+const defaultCityName = 'New York';
 
 const pastSearches = JSON.parse(localStorage.getItem('pastSearches')) || [];
+
+updatePastSearchList();
 
 fetchWeather(defaultCityName);
 
@@ -108,4 +199,7 @@ function addPastSearch(cityName) {
     localStorage.setItem('pastSearches', JSON.stringify(pastSearches));
     updatePastSearchList();
 }
+
+// Attach an event listener to the button to trigger location fetching
+document.getElementById('search-button').addEventListener('click', getCurrentLocation);
 

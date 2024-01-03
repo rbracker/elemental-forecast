@@ -27,7 +27,7 @@ main {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    margin-bottom: 20px; /* Added margin-bottom for spacing */
+    margin-bottom: 20px;
 }
 
 #week-forecast {
@@ -51,13 +51,28 @@ main {
 #week-forecast li {
     flex: 1;
     padding: 8px;
-    background-color: #464b56;
+    background-color: #565e6e;
     border-radius: 5px;
     margin-right: 5px;
 }
 
 #week-forecast li:hover {
     background-color: #555a64;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #week-forecast {
+        flex-direction: column;
+    }
+
+    #week-forecast li {
+        margin-bottom: 10px;
+    }
 }
 
 #search-container {
@@ -69,25 +84,33 @@ main {
 
 #search-input {
     padding: 8px;
-    margin-right: 10px; /* Increased margin-right for more spacing */
+    margin-right: 10px;
+    border-radius: 5px; /* Rounded corners */
+}
+
+#search-button {
+    padding: 8px;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
 }
 
 #past-searches {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
+    flex-wrap: wrap;
     margin-top: 20px;
+    padding: 30px;
 }
 
 #past-searches h3 {
     margin: 0;
-    flex-basis: 100%; /* Make the heading take full width initially */
+    flex-basis: 100%;
 }
 
 #past-search-list {
     list-style-type: none;
     padding: 0;
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
+    flex-wrap: wrap;
 }
 
 #past-search-list li {
@@ -96,9 +119,9 @@ main {
     padding: 8px;
     margin: 5px;
     cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
 }
 
 #past-search-list li:hover {
     background-color: #464b56;
 }
-
