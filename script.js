@@ -1,6 +1,6 @@
 async function fetchWeather(cityName) {
-    const apiKey = process.env.API_KEY;
-    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
+    const apiKey = 'd7e52e98046df3ba1be2ce6ff1a2d0e8';
+    const apiUrl = `https://api.openweathermap.org/ data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
 
     try {
         const response = await fetch(apiUrl);
@@ -26,7 +26,7 @@ async function fetchWeatherByCoordinates(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
-    const apiKey = process.env.API_KEY;
+    const apiKey = 'd7e52e98046df3ba1be2ce6ff1a2d0e8';
     const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
 
     try {
@@ -47,7 +47,7 @@ async function fetchWeatherByCoordinates(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
-    const apiKey = process.env.API_KEY;
+    const apiKey = 'd7e52e98046df3ba1be2ce6ff1a2d0e8';
     const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
 
     try {
