@@ -20,7 +20,10 @@ that city
 
 ## Expected Results
 After meeting all the requirements my project should look similar to the picture below 
-![Alt text](image.png)
+![Alt text](assets/images/image.png)
+
+## My Results
+![Alt text](<assets/images/Screenshot 2024-01-03 202253.png>)
 
 ## Technical Acceptance Criteria: 40%
 Satisfies all of the above acceptance criteria plus the following:
