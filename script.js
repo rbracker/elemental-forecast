@@ -1,3 +1,6 @@
+let hasLocation = false;
+let savedCoordinates = null;
+
 async function fetchWeather(cityName) {
     const apiKey = 'd7e52e98046df3ba1be2ce6ff1a2d0e8';
     const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
@@ -22,27 +25,6 @@ function handleLocationError(error) {
 }
 
 // Function to fetch weather based on latitude and longitude
-async function fetchWeatherByCoordinates(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
-
-    const apiKey = 'd7e52e98046df3ba1be2ce6ff1a2d0e8';
-    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
-
-    try {
-        const response = await fetch(apiUrl);
-
-        if (!response.ok) {
-            throw new Error(`Network response was not ok (${response.status} ${response.statusText})`);
-        }
-
-        const data = await response.json();
-        handleWeatherData(data);
-    } catch (error) {
-        handleWeatherError(error);
-    }
-}
-
 async function fetchWeatherByCoordinates(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
