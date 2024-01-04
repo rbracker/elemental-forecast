@@ -1,6 +1,6 @@
 async function fetchWeather(cityName) {
     const apiKey = 'd7e52e98046df3ba1be2ce6ff1a2d0e8';
-    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
+    const apiUrl = `https://api.openweathermap.org/ data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
 
     try {
         const response = await fetch(apiUrl);
