@@ -1,6 +1,6 @@
 async function fetchWeather(cityName) {
     const apiKey = 'd7e52e98046df3ba1be2ce6ff1a2d0e8';
-    const apiUrl = `https://api.openweathermap.org/ data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
 
     try {
         const response = await fetch(apiUrl);
@@ -64,6 +64,7 @@ async function fetchWeatherByCoordinates(position) {
     }
 }
 
+
 // Function to ask for location and fetch weather on page load
 function askForLocationAndFetchWeather() {
     if (navigator.geolocation) {
@@ -79,11 +80,31 @@ window.addEventListener('load', askForLocationAndFetchWeather);
 document.getElementById('search-button').addEventListener('click', handleSearchButtonClick);
 
 function handleSearchButtonClick() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(fetchWeatherByCoordinates, handleLocationError, { timeout: 5000 });
+    const cityName = document.getElementById('search-input').value.trim();
+
+    if (cityName !== '') {
+        if (!hasLocation && navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    savedCoordinates = position.coords;
+                    hasLocation = true;
+                    fetchWeatherByCoordinates(position);
+                },
+                (error) => {
+                    // Handle geolocation error or user denied permission
+                    console.log("Error getting location:", error.message);
+                    // You can provide a user-friendly message or fallback behavior here
+                },
+                { timeout: 5000 }
+            );
+        } else {
+            // Use the saved coordinates for subsequent searches
+            fetchWeather(cityName);
+            addPastSearch(cityName);
+        }
     } else {
-        console.log("Geolocation is not supported by this browser.");
-        // Provide a user-friendly message or fallback behavior here
+        console.log("Please enter a city name.");
+        // Provide user-friendly validation or feedback here
     }
 }
 
