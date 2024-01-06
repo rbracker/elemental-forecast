@@ -14,10 +14,25 @@ header {
     align-items: center;
 }
 
-h1 {
-    margin: 0;
+.header-content {
+    display: flex;
+    align-items: center;
 }
 
+h1 {
+    margin: 0;
+    margin-right: 300px; /* Adjust spacing between h1 and date-time if needed */
+}
+
+
+#current-date-time-container {
+    text-align: center;
+    flex-grow: 1; /* Make the container take up available space to center its content */
+}
+
+#current-date-time {
+    margin: 0;
+}
 main {
     padding: 20px;
 }
@@ -64,9 +79,9 @@ main {
 @media (max-width: 768px) {
     header {
         display: flex;
-        flex-direction: column; /* Stack items vertically on small screens */
+        flex-direction: column;
         align-items: center;
-        text-align: center; /* Center text content horizontally */
+        text-align: center;
     }
     
     .header-content {
@@ -76,6 +91,7 @@ main {
         align-items: center;
         width: 100%; /* Take up the full width */
     }
+    
     h1 {
         flex: 1;
     }
@@ -169,9 +185,4 @@ main {
 
 #past-search-list li:hover {
     background-color: #464b56;
-}
-
-#current-time {
-    margin-bottom: 10px;
-    text-align: center;
 }
