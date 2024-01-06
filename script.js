@@ -24,6 +24,26 @@ function handleLocationError(error) {
     // You can provide a user-friendly message or fallback behavior here
 }
 
+function handleWeatherData(data) {
+    const cityName = data.city.name;
+    document.getElementById('city-name').innerText = cityName;
+
+    // Display current date and time
+    const currentDate = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
+    const formattedDate = currentDate.toLocaleDateString('en-US', options);
+    document.getElementById('current-date-time').innerText = formattedDate;
+
+    // Display current weather
+    const temperatureKelvin = data.list[0].main.temp;
+    const temperatureFahrenheit = convertKelvinToFahrenheit(temperatureKelvin);
+    document.getElementById('temperature').innerText = `Temperature: ${temperatureFahrenheit.toFixed(2)} °F`;
+
+    // ... (rest of the existing code)
+
+    // Continue with your existing code for weather information display
+}
+
 // Function to fetch weather based on latitude and longitude
 async function fetchWeatherByCoordinates(position) {
     const latitude = position.coords.latitude;
@@ -205,4 +225,5 @@ function addPastSearch(cityName) {
 
 // Attach an event listener to the button to trigger location fetching
 document.getElementById('search-button').addEventListener('click', getCurrentLocation);
+
 

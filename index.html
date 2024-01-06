@@ -11,7 +11,10 @@
 <body>
 
     <header>
-        <h1>Elemental Forecast</h1>
+        <div class="header-content">
+            <h1>Elemental Forecast</h1>
+            <p id="current-date-time"></p>
+        </div>
         <div id="search-container">
             <input type="text" id="search-input" placeholder="Enter city name">
             <button id="search-button">Search</button>
@@ -33,6 +36,20 @@
             <ul id="week-forecast"></ul>
         </div>
     </main>
+
+    <script>
+        function updateCurrentDateTime() {
+            const currentDate = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
+            const formattedDate = currentDate.toLocaleDateString('en-US', options);
+        
+            document.getElementById('current-date-time').textContent = formattedDate;
+        }
+
+        updateCurrentDateTime();
+
+        setInterval(updateCurrentDateTime, 1000);
+    </script>
 
  <script src="script.js"></script>
 
