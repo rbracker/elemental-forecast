@@ -16,23 +16,72 @@ header {
 
 .header-content {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 h1 {
     margin: 0;
-    margin-right: 300px; /* Adjust spacing between h1 and date-time if needed */
 }
 
-
 #current-date-time-container {
-    text-align: center;
-    flex-grow: 1; /* Make the container take up available space to center its content */
+    margin-right: 20px;
 }
 
 #current-date-time {
     margin: 0;
 }
+
+#search-container {
+    display: flex;
+    align-items: center;
+}
+
+#search-input {
+    padding: 12px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+#search-button {
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#past-searches {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding: 30px;
+}
+
+#past-searches h3 {
+    margin: 0;
+    flex-basis: 100%;
+}
+
+#past-search-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#past-search-list li {
+    background-color: #555a64;
+    border: 1px solid #464b56;
+    padding: 8px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+}
+
+#past-search-list li:hover {
+    background-color: #464b56;
+}
+
 main {
     padding: 20px;
 }
@@ -89,25 +138,29 @@ main {
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
-        width: 100%; /* Take up the full width */
+        width: 100%;
     }
     
     h1 {
+        flex: auto;
+    }
+
+    #current-date-time {
         flex: 1;
+        text-align: center;
     }
-
+    
     #search-container {
-        display: flex;
-        justify-content: center; /* Center items horizontally */
+        margin: 0 auto;
+        text-align: center;
         align-items: center;
-        margin-top: 10px; /* Add space between header content and search container */
     }
-
+    
     #search-input {
         padding: 12px;
         margin-right: 10px;
         border-radius: 5px;
-        width: auto; /* Allow the input to take its natural width */
+        width: auto;
     }
     
     #search-button {
@@ -119,13 +172,11 @@ main {
     #past-searches {
         text-align: center;
         margin: 0 auto;
-    
     }
 
     #past-search-list {
         margin: 0 auto;
     }
-
 
     #week-forecast {
         flex-direction: column;
@@ -134,55 +185,4 @@ main {
     #week-forecast li {
         margin-bottom: 10px;
     }
-}
-
-#search-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-left: 20px;
-}
-
-#search-input {
-    padding: 8px;
-    margin-right: 10px;
-    border-radius: 5px; /* Rounded corners */
-}
-
-#search-button {
-    padding: 8px;
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer;
-}
-
-#past-searches {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    padding: 30px;
-}
-
-#past-searches h3 {
-    margin: 0;
-    flex-basis: 100%;
-}
-
-#past-search-list {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-#past-search-list li {
-    background-color: #555a64;
-    border: 1px solid #464b56;
-    padding: 8px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 5px; /* Rounded corners */
-}
-
-#past-search-list li:hover {
-    background-color: #464b56;
 }
